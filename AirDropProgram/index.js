@@ -35,7 +35,7 @@ const getWalletBalance = async() => {
   }
 };
 
-// Function to airdrop some SOL into wallet (SOL is airdropped in term of LAMPORTS (?))
+// Function to airdrop some SOL into wallet (SOL is airdropped in terms of LAMPORTS (?))
 const airDropSol = async () => {
   try{
     const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
