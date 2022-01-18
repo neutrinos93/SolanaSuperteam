@@ -12,7 +12,6 @@ const {
 const newPair = new Keypair(); // class to allow wallet creation.
 
 // newPair holds the public and private key
-
 const publicKey = new PublicKey(newPair._keypair.publicKey).toString();
 const secretKey = newPair._keypair.secretKey; // type is Uint8Array of length 64
 
@@ -35,7 +34,7 @@ const getWalletBalance = async() => {
   }
 };
 
-// Function to airdrop some SOL into wallet (SOL is airdropped in terms of LAMPORTS (?))
+// Function to airdrop some SOL into wallet (SOL is airdropped in terms of LAMPORTS)
 const airDropSol = async () => {
   try{
     const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
