@@ -1,16 +1,16 @@
 const {Keypair} = require("@solana/web3.js");
-const {getWalletBalance,transferSOL,airDropSol} = require("./SolanaHelper.js");
+const {getWalletBalance, transferSOL, airDropSol} = require("./SolanaHelper.js");
 const { getReturnAmount, totalAmtToBePaid, randomNumber } = require('./helper');
 
 const inquirer = require("inquirer");
 
 // Create user wallet
 const userWallet = Keypair.generate();
-console.log("User wallet: ", userWallet);
+//console.log("User wallet: ", userWallet);
 
 // Create treasury wallet
 const treasuryWallet = Keypair.generate();
-console.log("Treasury wallet: ", treasuryWallet);
+//console.log("Treasury wallet: ", treasuryWallet);
 
 const askQuestions = () => {
   const questions = [
@@ -56,9 +56,16 @@ const askQuestions = () => {
 };
 
 const gameExecution = async () => {
+  // Airdrop funds in the user wallet
+  console.log("Airdropping some SOL in user wallet.");
+  await airDropSol(userWallet, 5);
+  const startBalance = await getWalletBalance(userWallet.publicKey);
+  console.log("Starting balance: ", startBalance);
+
   const generateRandomNumber = randomNumber(1,5);
   // console.log("Generated number",generateRandomNumber);
   const answers = await askQuestions();
+  console.log("The value of RANDOM is:", answers.RANDOM)
   if (answers.RANDOM) {
       const paymentSignature = await transferSOL(userWallet,treasuryWallet,totalAmtToBePaid(answers.SOL));
       console.log(`Signature of payment for playing the game`,`${paymentSignature}`);
@@ -74,6 +81,8 @@ const gameExecution = async () => {
           console.log(`Better luck next time`);
       }
   }
+  // Print out new balance in wallet
+  console.log("New balance: ", await getWalletBalance(userWallet.publicKey.toString()));
 }
 
 gameExecution();

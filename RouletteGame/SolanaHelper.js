@@ -42,7 +42,7 @@ const airDropSol = async (wallet, transferAmt) => {
     try {
         const connection = new Connection(clusterApiUrl("devnet"),"confirmed");
         // const walletKeyPair=await web3.Keypair.fromSecretKey(Uint8Array.from())
-        const fromAirDropSignature = await connection.requestAirdrop(new PublicKey(wallet.publicKey.toString()), transferAmt * LAMPORTS_PER_SOL);
+        const fromAirDropSignature = await connection.requestAirdrop(new PublicKey(wallet.publicKey), transferAmt * LAMPORTS_PER_SOL);
         await connection.confirmTransaction(fromAirDropSignature);
     } catch(err) {
         console.log(err);
