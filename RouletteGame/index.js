@@ -62,27 +62,27 @@ const gameExecution = async () => {
   const startBalance = await getWalletBalance(userWallet.publicKey);
   console.log("Starting balance: ", startBalance);
 
-  const generateRandomNumber = randomNumber(1,5);
-  // console.log("Generated number",generateRandomNumber);
-  const answers = await askQuestions();
-  console.log("The value of RANDOM is:", answers.RANDOM)
-  if (answers.RANDOM) {
-      const paymentSignature = await transferSOL(userWallet,treasuryWallet,totalAmtToBePaid(answers.SOL));
-      console.log(`Signature of payment for playing the game`,`${paymentSignature}`);
-      if (answers.RANDOM===generateRandomNumber) {
-          //AirDrop Winning Amount
-          await airDropSol(treasuryWallet,getReturnAmount(answers.SOL,parseFloat(answers.RATIO)));
-          //guess is successfull
-          const prizeSignature = await transferSOL(treasuryWallet,userWallet,getReturnAmount(answers.SOL,parseFloat(answers.RATIO)))
-          console.log(`Your guess is absolutely correct`);
-          console.log(`Here is the price signature `,`${prizeSignature}`);
-      } else {
-          //better luck next time
-          console.log(`Better luck next time`);
-      }
-  }
-  // Print out new balance in wallet
-  console.log("New balance: ", await getWalletBalance(userWallet.publicKey.toString()));
+  // const generateRandomNumber = randomNumber(1,5);
+  // // console.log("Generated number",generateRandomNumber);
+  // const answers = await askQuestions();
+  // console.log("The value of RANDOM is:", answers.RANDOM)
+  // if (answers.RANDOM) {
+  //     const paymentSignature = await transferSOL(userWallet,treasuryWallet,totalAmtToBePaid(answers.SOL));
+  //     console.log(`Signature of payment for playing the game`,`${paymentSignature}`);
+  //     if (answers.RANDOM===generateRandomNumber) {
+  //         //AirDrop Winning Amount
+  //         await airDropSol(treasuryWallet,getReturnAmount(answers.SOL,parseFloat(answers.RATIO)));
+  //         //guess is successfull
+  //         const prizeSignature = await transferSOL(treasuryWallet,userWallet,getReturnAmount(answers.SOL,parseFloat(answers.RATIO)))
+  //         console.log(`Your guess is absolutely correct`);
+  //         console.log(`Here is the price signature `,`${prizeSignature}`);
+  //     } else {
+  //         //better luck next time
+  //         console.log(`Better luck next time`);
+  //     }
+  // }
+  // // Print out new balance in wallet
+  // console.log("New balance: ", await getWalletBalance(userWallet.publicKey.toString()));
 }
 
 gameExecution();

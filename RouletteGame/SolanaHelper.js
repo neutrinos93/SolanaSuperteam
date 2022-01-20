@@ -7,15 +7,26 @@ const {Connection,
     sendAndConfirmTransaction,
     requestAirdrop}  = require("@solana/web3.js");
 
-const getWalletBalance = async (publicKey) => {
-    try {
-        const connection = new Connection(clusterApiUrl("devnet"),"confirmed");
-        const balance = await connection.getBalance(new PublicKey(publicKey));
-        return balance/LAMPORTS_PER_SOL;
-    } catch(err) {
-        console.log(err);
-    }
-};
+// const getWalletBalance = async (publicKey) => {
+//     try {
+//         const connection = new Connection(clusterApiUrl("devnet"),"confirmed");
+//         const balance = await connection.getBalance(new PublicKey(publicKey));
+//         return balance/LAMPORTS_PER_SOL;
+//     } catch(err) {
+//         console.log(err);
+//     }
+// };
+
+// const airDropSol = async (wallet, transferAmt) => {
+//     try {
+//         const connection = new Connection(clusterApiUrl("devnet"),"confirmed");
+//         // const walletKeyPair=await web3.Keypair.fromSecretKey(Uint8Array.from())
+//         const fromAirDropSignature = await connection.requestAirdrop(new PublicKey(wallet.publicKey), transferAmt * LAMPORTS_PER_SOL);
+//         await connection.confirmTransaction(fromAirDropSignature);
+//     } catch(err) {
+//         console.log(err);
+//     }
+// }
 
 const transferSOL = async (from, to, transferAmt) => {
     try {
@@ -34,17 +45,6 @@ const transferSOL = async (from, to, transferAmt) => {
         )
         return signature;
     }catch(err) {
-        console.log(err);
-    }
-}
-
-const airDropSol = async (wallet, transferAmt) => {
-    try {
-        const connection = new Connection(clusterApiUrl("devnet"),"confirmed");
-        // const walletKeyPair=await web3.Keypair.fromSecretKey(Uint8Array.from())
-        const fromAirDropSignature = await connection.requestAirdrop(new PublicKey(wallet.publicKey), transferAmt * LAMPORTS_PER_SOL);
-        await connection.confirmTransaction(fromAirDropSignature);
-    } catch(err) {
         console.log(err);
     }
 }
